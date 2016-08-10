@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
-    <image nom="bandeau">
-        <fichier>bandeau.jpg</fichier>
-        <taille_standard>Panoramique</taille_standard>
-        <largeur_reelle>1600</largeur_reelle>
-        <hauteur_reelle>335</hauteur_reelle>
-    </image>
+	<image nom="bandeau">
+		<fichier>bandeau.jpg</fichier>
+		<taille_standard>Panoramique</taille_standard>
+		<largeur_reelle>1600</largeur_reelle>
+		<hauteur_reelle>335</hauteur_reelle>
+	</image>
 </petilabo>

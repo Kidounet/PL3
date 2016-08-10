@@ -3,14 +3,14 @@
 /**
  * Classe de gestion de l'éditeur d'objets
  */
- 
+
 class pl3_admin_editeur_objet extends pl3_admin_editeur {
 
 	/* Fonctions d'édition */
 	public function editer() {
 		$ret = "<form id=\"formulaire-".$this->id_objet."\" class=\"editeur_formulaire ".$this->classe_objet."\" method=\"post\">\n";
 		$ret .= $this->editer_valeur();
-		$ret .= $this->editer_attributs();	
+		$ret .= $this->editer_attributs();
 		$ret .= "<p class=\"boutons_formulaire\">\n";
 		$ret .= "<button id=\"soumettre-".$this->id_objet."\" class=\"soumettre_formulaire\" type=\"submit\" value=\"ok\" title=\"Enregistrer et fermer\">";
 		$ret .= "<span class=\"fa fa-check editeur_formulaire_icone_bouton\"></span>OK";

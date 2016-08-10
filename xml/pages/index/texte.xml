@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
-    <texte nom="titre_1">Voici un titre</texte>
-    <texte nom="titre_2">Gros titre</texte>
-    <texte nom="alt_carrousel_1">Rédaction oui mais rédaction web !</texte>
-    <texte nom="alt_carrousel_2">[...]</texte>
-    <texte nom="alt_carrousel_3">[...]</texte>
-    <texte nom="alt_carrousel_4">Suivez le guide SVP ;-)</texte>
-    <texte nom="id_texte_7">[...]</texte>
-    <texte nom="id_texte_8">[...]</texte>
-    <texte nom="id_texte_9">[...]</texte>
-    <texte nom="id_texte_10">A gauche</texte>
-    <texte nom="id_texte_11">A droite</texte>
-    <texte_riche nom="texte_actu">Ceci est une actualité...</texte_riche>
-    <texte_riche nom="texte_actu_1">&lt;p&gt;Une astuce pour le display:flex des contenus : les blocs ont un flex-grow égal à la taille du bloc&lt;em&gt; (1, 2, 3...)&lt;/em&gt; - c&#039;est une taille proportionnelle - et un &lt;strong&gt;&lt;font color=&quot;#953734&quot;&gt;width:0&lt;/font&gt;&lt;/strong&gt; !&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Il est désormais possible de saisir du texte enrichi !&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: right;&quot;&gt;&lt;em&gt;Signé : &lt;font color=&quot;#c0504d&quot;&gt;Filiiip&lt;/font&gt;&lt;/em&gt;&lt;/p&gt;</texte_riche>
-    <texte_riche nom="texte_actu_2">Voici l&#039; actualité n°2</texte_riche>
-    <texte_riche nom="id_texte_riche_4">&lt;p&gt;Hello &lt;strong&gt;:-)&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;background-color: rgb(147, 137, 83);&quot;&gt;Ca va ?&lt;/strong&gt;&lt;/p&gt;</texte_riche>
+	<texte nom="titre_1">Voici un titre</texte>
+	<texte nom="titre_2">Gros titre</texte>
+	<texte nom="alt_carrousel_1">Rédaction oui mais rédaction web !</texte>
+	<texte nom="alt_carrousel_2">[...]</texte>
+	<texte nom="alt_carrousel_3">[...]</texte>
+	<texte nom="alt_carrousel_4">Suivez le guide SVP ;-)</texte>
+	<texte nom="id_texte_7">[...]</texte>
+	<texte nom="id_texte_8">[...]</texte>
+	<texte nom="id_texte_9">[...]</texte>
+	<texte nom="id_texte_10">A gauche</texte>
+	<texte nom="id_texte_11">A droite</texte>
+	<texte_riche nom="texte_actu">Ceci est une actualité...</texte_riche>
+	<texte_riche nom="texte_actu_1">&lt;p&gt;Une astuce pour le display:flex des contenus : les blocs ont un flex-grow égal à la taille du bloc&lt;em&gt; (1, 2, 3...)&lt;/em&gt; - c&#039;est une taille proportionnelle - et un &lt;strong&gt;&lt;font color=&quot;#953734&quot;&gt;width:0&lt;/font&gt;&lt;/strong&gt; !&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Il est désormais possible de saisir du texte enrichi !&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: right;&quot;&gt;&lt;em&gt;Signé : &lt;font color=&quot;#c0504d&quot;&gt;Filiiip&lt;/font&gt;&lt;/em&gt;&lt;/p&gt;</texte_riche>
+	<texte_riche nom="texte_actu_2">Voici l&#039; actualité n°2</texte_riche>
+	<texte_riche nom="id_texte_riche_4">&lt;p&gt;Hello &lt;strong&gt;:-)&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;background-color: rgb(147, 137, 83);&quot;&gt;Ca va ?&lt;/strong&gt;&lt;/p&gt;</texte_riche>
 </petilabo>

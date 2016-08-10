@@ -1,16 +1,16 @@
 <?php
 
-/* Classe de service pour le traitement du $_FILES en post */	
+/* Classe de service pour le traitement du $_FILES en post */
 
 class pl3_ajax_telechargement_fichier {
 	private $file_post = array();
 	private $file_tmp_name = null;
-	
+
 	public function __construct($file_post) {
 		$this->file_post = $file_post;
 		$this->file_tmp_name = $file_post["tmp_name"];
 	}
-	
+
 	public function controle_post(&$message) {
 		$ret_chargement = $this->file_post["error"];
 		if ($ret_chargement == UPLOAD_ERR_OK) {
@@ -21,9 +21,9 @@ class pl3_ajax_telechargement_fichier {
 			return false;
 		}
 	}
-	
+
 	public function get_tmp_name() {return $this->file_tmp_name;}
-		
+
 	public function effacer() {
 		if (@file_exists($this->file_tmp_name)) {return (@unlink($this->file_tmp_name));}
 	}

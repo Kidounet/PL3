@@ -51,18 +51,18 @@ class pl3_ajax_telechargement_image {
 		}
 		return $ret;
 	}
-	
+
 	public function get_image_size() {
 		if (@file_exists($this->dest)) {return (@getimagesize($this->dest));}
 		else {return array(0, 0);}
 	}
-	
+
 	public function effacer() {
 		if (@file_exists($this->dest)) {return (@unlink($this->dest));}
 	}
-	
+
 	public function get_nom_image() {return $this->nom_dest;}
-	
+
 	private function resize_uploaded_file() {
 		$ret = true;
 		list($largeur_image, $hauteur_image) = getimagesize($this->src);
@@ -107,7 +107,7 @@ class pl3_ajax_telechargement_image {
 		}
 		return array($delta_l, $delta_h);
 	}
-	
+
 	private function retailler($largeur_image, $hauteur_image, $nouvelle_largeur, $nouvelle_hauteur, $delta_largeur, $delta_hauteur) {
 		if ($this->ext === self::EXTENSION_IMAGE_JPG) {
 			$this->retailler_jpg($largeur_image, $hauteur_image, $nouvelle_largeur, $nouvelle_hauteur, $delta_largeur, $delta_hauteur);
@@ -120,16 +120,16 @@ class pl3_ajax_telechargement_image {
 		}
 		@unlink($this->src);
 	}
-	
+
 	private function retailler_jpg($largeur_image, $hauteur_image, $nouvelle_largeur, $nouvelle_hauteur, $delta_largeur, $delta_hauteur) {
 		$src_r = imagecreatefromjpeg($this->src);
 		if ($src_r) {
 			$dst_r = ImageCreateTrueColor($nouvelle_largeur, $nouvelle_hauteur);
 			if ($dst_r) {
 				imagecopyresampled($dst_r, $src_r,
-									0, 0, 
-									$delta_largeur, $delta_hauteur, 
-									$nouvelle_largeur, $nouvelle_hauteur, 
+									0, 0,
+									$delta_largeur, $delta_hauteur,
+									$nouvelle_largeur, $nouvelle_hauteur,
 									$largeur_image - (2*$delta_largeur), $hauteur_image - (2*$delta_hauteur));
 				$qualite = $this->compression;
 				$ret = imagejpeg($dst_r, $this->dest, $qualite);
@@ -138,7 +138,7 @@ class pl3_ajax_telechargement_image {
 			imagedestroy($src_r);
 		}
 	}
-	
+
 	private function retailler_png($largeur_image, $hauteur_image, $nouvelle_largeur, $nouvelle_hauteur, $delta_largeur, $delta_hauteur) {
 		$src_r = imagecreatefrompng($this->src);
 		if ($src_r) {
@@ -150,9 +150,9 @@ class pl3_ajax_telechargement_image {
 					imagesavealpha($dst_r, true);
 				}
 				imagecopyresampled($dst_r, $src_r,
-									0, 0, 
-									$delta_largeur, $delta_hauteur, 
-									$nouvelle_largeur, $nouvelle_hauteur, 
+									0, 0,
+									$delta_largeur, $delta_hauteur,
+									$nouvelle_largeur, $nouvelle_hauteur,
 									$largeur_image - (2*$delta_largeur), $hauteur_image - (2*$delta_hauteur));
 				/* En cas d'image non transparente on reduit à une image avec palette (pb de taille) */
 				if (!$src_alpha) {
@@ -169,16 +169,16 @@ class pl3_ajax_telechargement_image {
 			imagedestroy($src_r);
 		}
 	}
-	
+
 	private function retailler_gif($largeur_image, $hauteur_image, $nouvelle_largeur, $nouvelle_hauteur, $delta_largeur, $delta_hauteur) {
 		$src_r = imagecreatefromgif($this->src);
 		if ($src_r) {
 			$dst_r = ImageCreateTrueColor($nouvelle_largeur, $nouvelle_hauteur);
 			if ($dst_r) {
 				imagecopyresampled($dst_r, $src_r,
-									0, 0, 
-									$delta_largeur, $delta_hauteur, 
-									$nouvelle_largeur, $nouvelle_hauteur, 
+									0, 0,
+									$delta_largeur, $delta_hauteur,
+									$nouvelle_largeur, $nouvelle_hauteur,
 									$largeur_image - (2*$delta_largeur), $hauteur_image - (2*$delta_hauteur));
 				$ret = imagegif($dst_r, $this->dest);
 				imagedestroy($dst_r);
@@ -203,12 +203,12 @@ class pl3_ajax_telechargement_image {
 		$ret = str_replace(".".self::EXTENSION_IMAGE_JPEG, ".".self::EXTENSION_IMAGE_JPG, $ret);
 		return $ret;
 	}
-	
+
 	private function get_extension_fichier($fichier) {
 		$ret = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));
 		return $ret;
 	}
-	
+
 	private function is_extension_media($ext) {
 		$ret = ($ext === self::EXTENSION_IMAGE_JPG);
 		$ret = $ret || ($ext === self::EXTENSION_IMAGE_PNG);

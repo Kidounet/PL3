@@ -1,15 +1,15 @@
 /*
  * JS PL3 général
  */
- 
+
 /* Blocage des mises en cache */
 $.ajaxSetup ({cache: false});
 
 /* ReplaceWith avec renvoi du nouvel objet */
 $.fn.replaceWithPush = function(a) {
-    var $a = $(a);
-    this.replaceWith($a);
-    return $a;
+	var $a = $(a);
+	this.replaceWith($a);
+	return $a;
 };
 
 /* Appel AJAX pour le changement de mode d'administration */
@@ -31,13 +31,13 @@ function changer_mode_admin(mode_admin) {
 function calculer_coord_editeur(objet, plein_ecran) {
 	/* Détection de la position en fonction du scrolling */
 	var body = document.body;
-    var html = document.documentElement;
-    var scrollTop = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
-    var scrollLeft = window.pageXOffset || html.scrollLeft || body.scrollLeft || 0;
-    var box = objet.get(0).getBoundingClientRect();
-    var pos_haut = box.top + scrollTop;
-    var pos_gauche = box.left + scrollLeft;
-	
+	var html = document.documentElement;
+	var scrollTop = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
+	var scrollLeft = window.pageXOffset || html.scrollLeft || body.scrollLeft || 0;
+	var box = objet.get(0).getBoundingClientRect();
+	var pos_haut = box.top + scrollTop;
+	var pos_gauche = box.left + scrollLeft;
+
 	/* Calcul de la position top en tenant compte de la position de la page */
 	var decalage_page = parseInt($("div.page").css("margin-top").replace("px", ""));
 	var hauteur = parseInt(objet.outerHeight());
@@ -60,7 +60,7 @@ function calculer_coord_editeur(objet, plein_ecran) {
 		style += "left:"+pos_x+"px;";
 		style += "min-width:"+largeur_min+"px;";
 	}
-	
+
 	return style;
 }
 
@@ -93,7 +93,7 @@ $(document).ready(function() {
 		var mode_admin = parseInt(mode_id);
 		changer_mode_admin(mode_admin);
 	});
-	
+
 	/* Gestion des boutons de la barre d'outils dans l'éditeur d'objets */
 	$("div.page").on("click", "p.editeur_objet_barre_outils a.editeur_objet_bouton_fermer", function() {
 		var editeur = $(this).closest("div.editeur_objet");
@@ -124,12 +124,12 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-	
+
 	/* Gestion du survol d'un bouton */
 	$("div.page").on("mouseover", "button", function() {
 		$(this).css("cursor", "pointer");
 	});
-	
+
 	/* Bouton "annuler" dans les éditeurs d'objets */
 	$("div.page").on("click", "form.editeur_formulaire button.annuler_formulaire", function() {
 		var form_id = $(this).attr("id");
@@ -137,7 +137,7 @@ $(document).ready(function() {
 		$("#"+html_id).remove();
 		return false;
 	});
-	
+
 	/* Gestion des éditeurs d'objets lors du retaillage de la fenêtre */
 	$(window).on("resize", function() {
 		$("div.page div.editeur_objet").each(function() {

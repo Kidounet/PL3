@@ -3,7 +3,7 @@
 /**
  * Classe de gestion des sessions
  */
- 
+
 class pl3_admin_session {
 	const SESSION_PREFIXE = "session_";
 	const SESSION_TIMEOUT = 14400;

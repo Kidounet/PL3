@@ -1,7 +1,7 @@
 /*
  * JS PL3 mode administration objets
  */
- 
+
 /* Appel AJAX pour soumission d'un éditeur de contenu */
 function soumettre_contenu(nom_page, contenu_id, parametres) {
 	$.ajax({
@@ -159,7 +159,7 @@ function afficher_editeur(elem_nom, elem_id, html) {
 		div += "</p>";
 		div += html;
 		div += "</div>";
-		
+
 		/* Affichage de l'éditeur */
 		$("div.page").append(div);
 	}
@@ -193,8 +193,8 @@ $(document).ready(function() {
 	$("div.page").on("mouseleave", ".bloc_legende_nom", function() {
 		$(this).removeClass("bloc_legende_survol");
 	});
-	
-	/* Gestion du clic sur un bloc */	
+
+	/* Gestion du clic sur un bloc */
 	$("div.page").on("click", ".bloc_grille", function() {
 		var bloc_attr_id = $(this).attr("id");
 		var html_id = bloc_attr_id.replace("bloc-", "");
@@ -208,7 +208,7 @@ $(document).ready(function() {
 			}
 		}
 	});
-	
+
 	/* Gestion du bouton pour l'édition de contenu */
 	$("div.page").on("click", "p.contenu_poignee_edit a", function() {
 		var contenu_attr_id = $(this).parent().attr("id");
@@ -217,14 +217,14 @@ $(document).ready(function() {
 		editer_contenu(nom_page, contenu_id);
 		return false;
 	});
-	
+
 	/* Gestion du bouton pour l'ajout de contenu */
 	$("div.page").on("click", "p.contenu_poignee_ajout a", function() {
 		var nom_page = parser_page();
 		ajouter_contenu(nom_page);
 		return false;
 	});
-	
+
 	/* Gestion des boutons pour l'ajout de bloc */
 	$("div.page").on("click", "p.bloc_poignee_ajout a", function() {
 		var bloc_attr_id = $(this).parent().attr("id");
@@ -253,7 +253,7 @@ $(document).ready(function() {
 		soumettre_bloc(nom_page, bloc_id, parametres);
 		return false;
 	});
-	
+
 	/* Possibilité de changer l'ordre des éléments */
 	$(".page").sortable({
 		items: ".contenu_flex",

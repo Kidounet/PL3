@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
-    <texte nom="titre_actu">Actualité(e)s</texte>
-    <texte nom="Alternative">Texte alternatif sur image globale</texte>
+	<texte nom="titre_actu">Actualité(e)s</texte>
+	<texte nom="Alternative">Texte alternatif sur image globale</texte>
 </petilabo>

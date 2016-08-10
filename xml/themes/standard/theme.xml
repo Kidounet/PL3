@@ -28,23 +28,23 @@
 	</taille_image>
 
 	<!-- Styles de page -->
-    <style_page nom="defaut">
-        <largeur>90%</largeur>
-        <responsive>700px</responsive>
-    </style_page>
+	<style_page nom="defaut">
+		<largeur>90%</largeur>
+		<responsive>700px</responsive>
+	</style_page>
 
 	<!-- Styles de contenu -->
-    <style_contenu nom="defaut">
+	<style_contenu nom="defaut">
 		<marge>15px</marge>
 		<retrait>10px</retrait>
-        <fond>url('../images/standard/texture-contenu.png')</fond>
-    </style_contenu>
+		<fond>url('../images/standard/texture-contenu.png')</fond>
+	</style_contenu>
 
 	<!-- Styles de bloc -->
-    <style_bloc nom="defaut">
+	<style_bloc nom="defaut">
 		<marge>15px 5px</marge>
 		<retrait>10px</retrait>
-        <fond>url('../images/standard/texture-bloc.png')</fond>
+		<fond>url('../images/standard/texture-bloc.png')</fond>
 		<bordure>2px solid #444;</bordure>
-    </style_bloc>
+	</style_bloc>
 </petilabo>

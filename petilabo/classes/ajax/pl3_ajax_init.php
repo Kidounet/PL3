@@ -9,7 +9,7 @@ class pl3_ajax_init {
 	private static $Page = null;
 	private static $Contenu = null;
 	private static $Bloc = null;
-	private static $Objet = null;	
+	private static $Objet = null;
 	private static $Fiche_media_local = null;
 	private static $Media_id = null;
 	private static $Media = null;
@@ -51,7 +51,7 @@ class pl3_ajax_init {
 				}
 			}
 		}
-		
+
 		return $ajax_objet_valide;
 	}
 
@@ -70,10 +70,10 @@ class pl3_ajax_init {
 			self::$Contenu = self::$Page->chercher_objet_classe_par_id("pl3_objet_page_contenu", $contenu_id);
 			if (self::$Contenu != null) {$ajax_objet_valide = true;}
 		}
-		
+
 		return $ajax_objet_valide;
 	}
-	
+
 	public static function Init_bloc() {
 		/* Récupération du nom de la page */
 		$ajax_objet_valide = self::Init_page();
@@ -104,10 +104,10 @@ class pl3_ajax_init {
 				if (self::$Bloc != null) {$ajax_objet_valide = true;}
 			}
 		}
-		
+
 		return $ajax_objet_valide;
 	}
-	
+
 	public static function Init_media() {
 		/* Récupération du nom de la page */
 		$ajax_media_valide = self::Init_page();
@@ -125,11 +125,11 @@ class pl3_ajax_init {
 				if (self::$Media != null) {$ajax_media_valide = true;}
 			}
 		}
-		
+
 		return $ajax_media_valide;
 	}
 
-	/* Récupération du nom de la page */	
+	/* Récupération du nom de la page */
 	public static function Init_page() {
 		$ajax_page_valide = false;
 		self::$Nom_page = pl3_admin_post::Post("nom_page");

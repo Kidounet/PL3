@@ -3,8 +3,8 @@ contenu des fichiers "objet" :
 
 constantes obligatoires
 -----------------------
-NOM_FICHE : fiche dont dÃ©pend cet objet (media, page, texte ou theme)
+NOM_FICHE : fiche dont dépend cet objet (media, page, texte ou theme)
 NOM_BALISE : balise correspondante dans le fichier XML
-TYPE : un des types dÃ©clarÃ©s dans la classe pl3_outil_objet_xml (constante commmenÃ§ant par TYPE)
+TYPE : un des types déclarés dans la classe pl3_outil_objet_xml (constante commmençant par TYPE)
 
 

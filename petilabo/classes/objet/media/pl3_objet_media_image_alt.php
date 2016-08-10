@@ -1,10 +1,10 @@
 <?php
 
 class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
-	const NOM_FICHE  = "media";
+	const NOM_FICHE = "media";
 	const NOM_BALISE = "alt";
-	const TYPE       = self::TYPE_INDIRECTION;
-	const REFERENCE  = "pl3_objet_texte_texte";
+	const TYPE = self::TYPE_INDIRECTION;
+	const REFERENCE = "pl3_objet_texte_texte";
 
 	/* Attributs spécifiques */
 	private $nom_alt = null;

@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
-    <meta>
-        <titre>PL3 : Index</titre>
-        <description>Yet another PetiLabo :-)</description>
-        <theme>original</theme>
-    </meta>
-    <contenu>
-        <bloc nom="Bandeau de titre">
-            <titre niveau="1">titre_1</titre>
-            <paragraphe style="defaut">id_texte_riche_4</paragraphe>
-        </bloc>
-    </contenu>
-    <contenu style="defaut">
-        <bloc nom="Gouttière gauche" style="defaut" taille="3">
-            <saut>1</saut>
-        </bloc>
-        <bloc nom="Ici, mon article" style="sombre" taille="8">
-            <titre style="defaut" niveau="1">titre_actu</titre>
-            <image lien="toto" survol="defaut">vignette_actu</image>
-            <paragraphe style="defaut">texte_actu_1</paragraphe>
-        </bloc>
-        <bloc nom="Volet droit" style="defaut" taille="3">
-            <titre niveau="1">titre_2</titre>
-            <saut>2</saut>
-        </bloc>
-    </contenu>
-    <contenu style="defaut">
-        <bloc nom="Avant" style="defaut" taille="1">
-        </bloc>
-        <bloc nom="Après" style="defaut" taille="2">
-        </bloc>
-        <bloc>
-        </bloc>
-    </contenu>
-    <contenu>
-        <bloc nom="Gauche" style="sombre" taille="1">
-            <titre style="italique" niveau="2">id_texte_10</titre>
-        </bloc>
-        <bloc nom="Droite" style="sombre" taille="1">
-            <titre style="italique" niveau="2">id_texte_11</titre>
-        </bloc>
-    </contenu>
+	<meta>
+		<titre>PL3 : Index</titre>
+		<description>Yet another PetiLabo :-)</description>
+		<theme>original</theme>
+	</meta>
+	<contenu>
+		<bloc nom="Bandeau de titre">
+			<titre niveau="1">titre_1</titre>
+			<paragraphe style="defaut">id_texte_riche_4</paragraphe>
+		</bloc>
+	</contenu>
+	<contenu style="defaut">
+		<bloc nom="Gouttière gauche" style="defaut" taille="3">
+			<saut>1</saut>
+		</bloc>
+		<bloc nom="Ici, mon article" style="sombre" taille="8">
+			<titre style="defaut" niveau="1">titre_actu</titre>
+			<image lien="toto" survol="defaut">vignette_actu</image>
+			<paragraphe style="defaut">texte_actu_1</paragraphe>
+		</bloc>
+		<bloc nom="Volet droit" style="defaut" taille="3">
+			<titre niveau="1">titre_2</titre>
+			<saut>2</saut>
+		</bloc>
+	</contenu>
+	<contenu style="defaut">
+		<bloc nom="Avant" style="defaut" taille="1">
+		</bloc>
+		<bloc nom="Après" style="defaut" taille="2">
+		</bloc>
+		<bloc>
+		</bloc>
+	</contenu>
+	<contenu>
+		<bloc nom="Gauche" style="sombre" taille="1">
+			<titre style="italique" niveau="2">id_texte_10</titre>
+		</bloc>
+		<bloc nom="Droite" style="sombre" taille="1">
+			<titre style="italique" niveau="2">id_texte_11</titre>
+		</bloc>
+	</contenu>
 </petilabo>

@@ -13,64 +13,64 @@
  * version: 1.0.3
  */
 (function($) {
-    $.fn.singleupload = function(options) {
-        var vignette = this;
-        var inputfile = null;
-        var settings = $.extend({
-            action: '#',
-            onSuccess: function(html) {},
-            onError: function(message){},
-            onProgress: function(index, loaded, total) {
-                var progression = Math.round(loaded * 100 / total);
+	$.fn.singleupload = function(options) {
+		var vignette = this;
+		var inputfile = null;
+		var settings = $.extend({
+			action: '#',
+			onSuccess: function(html) {},
+			onError: function(message){},
+			onProgress: function(index, loaded, total) {
+				var progression = Math.round(loaded * 100 / total);
 				var barre = $("#barre-progression-"+index);
 				if (barre) {barre.css("width", progression+"%");}
-            },
-            taille: 0,
-            nom_taille: "",
+			},
+			taille: 0,
+			nom_taille: "",
 			largeur_taille: 0,
 			hauteur_taille: 0,
 			compression: 75,
 			page: 'index'
-        }, options);
+		}, options);
 
-        $('#'+settings.inputId).bind('change', function() {
+		$('#'+settings.inputId).bind('change', function() {
 			var html_barre_progression = "<div class='vignette_container_progression'><div id='barre-progression-"+settings.taille+"' class='vignette_barre_progression'></div></div>";
-            vignette = vignette.replaceWithPush(html_barre_progression);
-            var fd = new FormData();
-            fd.append($('#'+settings.inputId).attr("name"), $('#'+settings.inputId).get(0).files[0]);
-            fd.append("taille", settings.taille);
-            fd.append("nom_taille", settings.nom_taille);
-            fd.append("largeur_taille", settings.largeur_taille);
-            fd.append("hauteur_taille", settings.hauteur_taille);
-            fd.append("compression", settings.compression);
-            fd.append("page", settings.page);
+			vignette = vignette.replaceWithPush(html_barre_progression);
+			var fd = new FormData();
+			fd.append($('#'+settings.inputId).attr("name"), $('#'+settings.inputId).get(0).files[0]);
+			fd.append("taille", settings.taille);
+			fd.append("nom_taille", settings.nom_taille);
+			fd.append("largeur_taille", settings.largeur_taille);
+			fd.append("hauteur_taille", settings.hauteur_taille);
+			fd.append("compression", settings.compression);
+			fd.append("page", settings.page);
 
-            var xhr = new XMLHttpRequest();
-            xhr.addEventListener("load", function(ev) {
-                var res = eval("("+ev.target.responseText+")");
-                if (!res.code) {
-                    settings.onError(res.info);
-                }
+			var xhr = new XMLHttpRequest();
+			xhr.addEventListener("load", function(ev) {
+				var res = eval("("+ev.target.responseText+")");
+				if (!res.code) {
+					settings.onError(res.info);
+				}
 				/* Ajout de la nouvelle image et/ou du nouveau bouton d'ajout */
 				var vignette_parent = vignette.parent().replaceWithPush(res.html);
 				/* Le nouveau bouton d'ajout reçoit à son tour le plugin d'upload */
 				vignette_parent.find("a.vignette_plus").each(function() {
 					installer_single_image_upload($(this));
 				});
-                if (res.code) {
+				if (res.code) {
 					settings.onSuccess(res.html);
 				}
-            },
-            false);
-            xhr.upload.addEventListener("progress", function(ev) {
-                settings.onProgress(settings.taille, ev.loaded, ev.total);
-            }, false);
-            
-            xhr.open("POST", settings.action, true);
-            xhr.send(fd);  
-        });  
-    	return this;
-    }
+			},
+			false);
+			xhr.upload.addEventListener("progress", function(ev) {
+				settings.onProgress(settings.taille, ev.loaded, ev.total);
+			}, false);
+
+			xhr.open("POST", settings.action, true);
+			xhr.send(fd);
+		});
+		return this;
+	}
 }( jQuery ));
 
 /* AJAX */
@@ -164,7 +164,7 @@ function afficher_editeur(media_id, html) {
 		div += "</p>";
 		div += html;
 		div += "</div>";
-		
+
 		/* Affichage de l'éditeur */
 		$("div.page_media").append(div);
 	}
@@ -213,7 +213,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-	
+
 	/* Gestion du clic sur un bouton d'ajout media */
 	$("div.page_media").on("click", ".vignette_plus", function() {
 		var plus_id = $(this).attr("id");
@@ -228,7 +228,7 @@ $(document).ready(function() {
 	$("a.vignette_plus").each(function() {
 		installer_single_image_upload($(this));
 	});
-	
+
 	/* Bouton "soumettre" dans les éditeurs d'images */
 	$("div.page").on("submit", "form.editeur_formulaire", function() {
 		var form_id = $(this).attr("id");
@@ -238,7 +238,7 @@ $(document).ready(function() {
 		soumettre_image(nom_page, media_id, parametres);
 		return false;
 	});
-	
+
 	/* Boutons "supprimer" dans les éditeurs d'images */
 	$("div.page").on("click", "form.editeur_formulaire button.supprimer_formulaire", function() {
 		var form_id = $(this).attr("id");

@@ -3,11 +3,11 @@
 /**
  * Classe de gestion de l'interface d'administration
  */
- 
+
 class pl3_admin_interface {
 	/* Singleton */
 	private static $Admin_interface = null;
-	
+
 	/* Propriétés */
 	private $mode_actuel;
 
@@ -39,7 +39,7 @@ class pl3_admin_interface {
 
 		return $html;
 	}
-	
+
 	private function ecrire_logo_barre_outils() {
 		$html = "";
 		$html .= "<a class=\"admin_item_logo\">";
@@ -47,7 +47,7 @@ class pl3_admin_interface {
 		$html .= "</a>";
 		return $html;
 	}
-	
+
 	private function ecrire_item_barre_outils($mode, $icone, $label) {
 		$html = "";
 		$href = ($mode == $this->mode_actuel)?"":" href=\"#\"";

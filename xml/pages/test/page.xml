@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
-    <contenu>
-        <bloc>
-            <image lien="">bandeau</image>
-            <titre niveau="1">id_texte_1</titre>
-        </bloc>
-    </contenu>
-    <contenu>
-        <bloc>
-            <saut>1</saut>
-            <paragraphe style="style_toto">texte_actu_1</paragraphe>
-            <saut>1</saut>
-        </bloc>
-        <bloc>
-            <saut>1</saut>
-            <paragraphe style="style_toto">texte_actu_2</paragraphe>
-            <saut>1</saut>
-        </bloc>
-    </contenu>
+	<contenu>
+		<bloc>
+			<image lien="">bandeau</image>
+			<titre niveau="1">id_texte_1</titre>
+		</bloc>
+	</contenu>
+	<contenu>
+		<bloc>
+			<saut>1</saut>
+			<paragraphe style="style_toto">texte_actu_1</paragraphe>
+			<saut>1</saut>
+		</bloc>
+		<bloc>
+			<saut>1</saut>
+			<paragraphe style="style_toto">texte_actu_2</paragraphe>
+			<saut>1</saut>
+		</bloc>
+	</contenu>
 </petilabo>

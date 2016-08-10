@@ -5,11 +5,11 @@
  */
 
 class pl3_objet_page_saut extends pl3_outil_objet_xml {
-	const ICONE      = "fa-arrows-v";
-	const NOM_FICHE  = "page";
+	const ICONE = "fa-arrows-v";
+	const NOM_FICHE = "page";
 	const NOM_BALISE = "saut";
-	const TYPE       = self::TYPE_ENTIER;
-	const MIN        = 1;
+	const TYPE = self::TYPE_ENTIER;
+	const MIN = 1;
 
 	/* Création */
 	public function construire_nouveau() {

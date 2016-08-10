@@ -27,47 +27,47 @@
 	<taille_image nom="Taille libre">
 		<compression>75</compression>
 	</taille_image>
-	
+
 	<!-- Styles de page -->
-    <style_page nom="defaut">
-        <largeur>90%</largeur>
-        <responsive>700px</responsive>
-    </style_page>
+	<style_page nom="defaut">
+		<largeur>90%</largeur>
+		<responsive>700px</responsive>
+	</style_page>
 
 	<!-- Styles de contenu -->
-    <style_contenu nom="defaut">
-        <fond>#bbb</fond>
-    </style_contenu>
-    <style_contenu nom="transparent">
-    </style_contenu>
-    <style_contenu nom="alerte">
+	<style_contenu nom="defaut">
+		<fond>#bbb</fond>
+	</style_contenu>
+	<style_contenu nom="transparent">
+	</style_contenu>
+	<style_contenu nom="alerte">
 		<fond>#a22</fond>
-    </style_contenu>
+	</style_contenu>
 
 	<!-- Styles de bloc -->
-    <style_bloc nom="defaut">
+	<style_bloc nom="defaut">
 		<marge>10px</marge>
 		<retrait>10px</retrait>
-        <fond>#ddf</fond>
+		<fond>#ddf</fond>
 		<css>border-radius:10px;</css>
-    </style_bloc>
-    <style_bloc nom="sombre">
+	</style_bloc>
+	<style_bloc nom="sombre">
 		<marge>5px</marge>
 		<retrait>15px</retrait>
-        <fond>#336</fond>
+		<fond>#336</fond>
 		<css>border-radius:10px;</css>
-    </style_bloc>
+	</style_bloc>
 
 	<!-- Styles de texte -->
-    <style_texte nom="grand">
-        <taille>150%</taille>
-    </style_texte>
-    <style_texte nom="italique">
-        <css>font-style:italic;</css>
-    </style_texte>
+	<style_texte nom="grand">
+		<taille>150%</taille>
+	</style_texte>
+	<style_texte nom="italique">
+		<css>font-style:italic;</css>
+	</style_texte>
 
 	<!-- Styles de survol -->
-    <style_survol nom="fond_gris">
+	<style_survol nom="fond_gris">
 		<couleur_fond>#333</couleur_fond>
 	</style_survol>
 </petilabo>
