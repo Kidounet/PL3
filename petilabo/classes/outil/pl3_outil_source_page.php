@@ -46,7 +46,7 @@ class pl3_outil_source_page {
 		$instance = null;
 		$nom_fiche = $classe_objet::NOM_FICHE;
 		/* Cas d'un objet hors page : on l'insère à la racine de la fiche */
-		if (strcmp($nom_fiche, "page")) {
+		if ($nom_fiche !== "page") {
 			if (isset($this->liste_sources[$nom_fiche])) {
 				$liste_fiches = $this->liste_sources[$nom_fiche];
 				$instance = $liste_fiches->instancier_nouveau(_NOM_SOURCE_LOCAL, $classe_objet);
@@ -64,13 +64,13 @@ class pl3_outil_source_page {
 		}
 		return $instance;
 	}
-	
+
 	/* Enregistrement de nouveaux objets */
 	public function enregistrer_nouveau(&$objet, $id_contenu = 0, $id_bloc = 0) {
 		$classe_objet = get_class($objet);
 		$nom_fiche = $classe_objet::NOM_FICHE;
 		/* Cas d'un objet hors page : on l'insère à la racine de la fiche */
-		if (strcmp($nom_fiche, "page")) {
+		if ($nom_fiche !== "page") {
 			if (isset($this->liste_sources[$nom_fiche])) {
 				$liste_fiches = $this->liste_sources[$nom_fiche];
 				$liste_fiches->ajouter_objet(_NOM_SOURCE_LOCAL, $objet);
@@ -89,7 +89,7 @@ class pl3_outil_source_page {
 			}
 		}
 	}
-	
+
 	/* Suppression d'objets */
 	public function supprimer(&$objet) {
 		$classe_objet = get_class($objet);
@@ -126,10 +126,12 @@ class pl3_outil_source_page {
 			$liste_fiches->charger_xml();
 		}
 	}
+	public function charger_page_xml() {
+		$this->page->charger_xml();
+	}
 	public function charger_theme_xml() {
 		$this->liste_themes->charger_xml();
 	}
-	public function charger_page_xml() {$this->page->charger_xml();}
 
 	/* Enregistrement XML */
 	public function enregistrer_xml() {
@@ -147,10 +149,10 @@ class pl3_outil_source_page {
 	public function afficher($mode) {
 		$this->generer_theme($mode);
 		$this->page->set_mode($mode);
-		$html = $this->page->afficher();
+		$html = $this->page->afficher($mode);
 		return $html;
 	}
-	
+
 	/* Génération du CSS */
 	public function generer_theme($mode) {
 		if (!($this->theme_a_jour)) {
@@ -171,7 +173,7 @@ class pl3_outil_source_page {
 		return $theme;
 	}
 	public function get_nom_theme() {return $this->theme;}
-	
+
 	/* Recherches */
 	public function chercher_liste_textes_par_nom($balise, $nom) {
 		return $this->chercher_liste_fiches_par_nom(pl3_fiche_texte::NOM_FICHE, $balise, $nom);
@@ -192,72 +194,42 @@ class pl3_outil_source_page {
 		if (isset($this->liste_sources[$nom_fiche])) {
 			return $this->liste_sources[$nom_fiche]->chercher_liste_noms_par_classe($nom_classe);
 		}
-		else if (!(strcmp($nom_fiche, "theme"))) {
+		else if ($nom_fiche === "theme") {
 			return $this->liste_themes->chercher_liste_noms_par_classe($nom_classe);
 		}
 		else {return null;}
 	}
 
 	/* Méthodes de parsing */
-	public function parser_balise($fiche, &$objet_parent, $nom_balise, &$noeud) {
+	public function parser_balise($fiche, &$objet_parent, &$noeud, $nom_classe) {
 		$ret = array();
 		if ($noeud != null) {
-			$nom_classe = _PREFIXE_OBJET.$fiche."_".$nom_balise;
 			$reflection = new ReflectionClass($nom_classe);
 			$balise = $reflection->getConstant("NOM_BALISE");
 			$liste = $noeud->getElementsByTagName($balise);
-			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array(1 + count($ret), &$objet_parent, &$element));
-				$instance->parser_attributs($element);
-				$ret[] = $instance;
-			}
-		}
-		return $ret;
-	}
-	
-	public function parser_balise_fille($fiche, &$objet_parent, $nom_classe, $nom_balise, &$noeud) {
-		$ret = array();
-		if ($noeud != null) {
-			$nom_classe = $nom_classe."_".$nom_balise;
-			$reflection = new ReflectionClass($nom_classe);
-			$balise = $reflection->getConstant("NOM_BALISE");
-			$liste = $noeud->getElementsByTagName($balise);
-			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array(1 + count($ret), &$objet_parent, &$element));
-				$instance->parser_attributs($element);
-				$instance->parser_valeur($element);
-				$ret[] = $instance;
-			}
-		}
-		return $ret;
-	}
-	
-	public function parser_toute_balise($fiche, &$objet_parent, &$noeud) {
-		$ret = array();
-		if ($noeud != null) {
-			$liste_objets = $noeud->childNodes;
-			foreach ($liste_objets as $objet) {
-				if ($objet->nodeType != XML_ELEMENT_NODE) {continue;}
-				$nom_balise = $objet->nodeName;
-				$nom_classe = _PREFIXE_OBJET.$fiche."_".$nom_balise;
-				$nom_fichier = _CHEMIN_OBJET.$fiche."/".$nom_classe.".php";
-				/* On teste le fichier et non la classe car l'échec de l'autoload provoque un die */
-				$fichier_existe = @file_exists($nom_fichier);
-				if ($fichier_existe) {
-					$reflection = new ReflectionClass($nom_classe);
-					$instance = $reflection->newInstanceArgs(array(1 + count($ret), &$objet_parent, &$objet));
-					$instance->parser_attributs($objet);
-					$instance->parser_valeur($objet);
-					$ret[] = $instance;
+			foreach($liste as $dom_element) {
+				$objet = $reflection->newInstanceArgs(array(1 + count($ret), &$objet_parent, &$element));
+
+				/* parser les attributs */
+				foreach($objet->get_liste_attributs() as $attribut) {
+					$nom_attribut = $attribut["nom"];
+					if ($dom_element->hasAttribute($nom_attribut)) {
+						$valeur_attribut = $dom_element->getAttribute($nom_attribut);
+						$objet->set_attribut($nom_attribut, $valeur_attribut);
+					}
 				}
-				else {
-					echo "ERREUR : L'objet ".$nom_balise." n'existe pas.<br>\n";
+
+				/* parser la valeur */
+				if ($objet->avec_valeur()) {
+					$objet->set_valeur($dom_element->nodeValue);
 				}
+
+				$ret[] = $objet;
 			}
 		}
 		return $ret;
 	}
-	
+
 	/* Vérification que le thème est à jour */
 	private function verifier_theme_a_jour() {
 		$ret = false;

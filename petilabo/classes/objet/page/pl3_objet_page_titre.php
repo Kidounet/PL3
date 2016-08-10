@@ -5,17 +5,16 @@
  */
 
 class pl3_objet_page_titre extends pl3_outil_objet_xml {
-	const ICONE      = "fa-text-height";
-	const NOM_FICHE  = "page";
+	const ICONE = "fa-text-height";
+	const NOM_FICHE = "page";
 	const NOM_BALISE = "titre";
-	const TYPE       = self::TYPE_INDIRECTION;
-	const REFERENCE  = "pl3_objet_texte_texte";
+	const TYPE = self::TYPE_INDIRECTION;
+	const REFERENCE = "pl3_objet_texte_texte";
 
 	/* Attributs */
-	public static $attributs = array(
+	const ATTRIBUTS = array(
 		array("nom" => "style", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_texte"),
-		array("nom" => "niveau", "type" => self::TYPE_ENTIER, "min" => 1, "max" => 6)
-	);
+		array("nom" => "niveau", "type" => self::TYPE_ENTIER, "min" => 1, "max" => 6));
 
 	/* Création */
 	public function construire_nouveau() {

@@ -5,12 +5,15 @@
  */
 
 class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
-	const ICONE      = "fa-file-text-o ";
-	const NOM_FICHE  = "page";
+	const ICONE = "fa-file-text-o ";
+	const NOM_FICHE = "page";
 	const NOM_BALISE = "paragraphe";
-	const TYPE       = self::TYPE_INDIRECTION;
-	const REFERENCE  = "pl3_objet_texte_texte_riche";
-	const ATTRIBUTS  = array(array("nom" => "style", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_texte"));
+	const TYPE = self::TYPE_INDIRECTION;
+	const REFERENCE = "pl3_objet_texte_texte_riche";
+
+	/* Attributs */
+	const ATTRIBUTS = array(
+		array("nom" => "style", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_texte"));
 
 	/* Création */
 	public function construire_nouveau() {

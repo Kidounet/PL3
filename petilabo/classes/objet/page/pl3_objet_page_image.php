@@ -5,17 +5,16 @@
  */
 
 class pl3_objet_page_image extends pl3_outil_objet_xml {
-	const ICONE      = "fa-picture-o";
-	const NOM_FICHE  = "page";
+	const ICONE = "fa-picture-o";
+	const NOM_FICHE = "page";
 	const NOM_BALISE = "image";
-	const TYPE       = self::TYPE_REFERENCE;
-	const REFERENCE  = "pl3_objet_media_image";
+	const TYPE = self::TYPE_REFERENCE;
+	const REFERENCE = "pl3_objet_media_image";
 
 	/* Attributs */
-	static $attributs = array(
+	const ATTRIBUTS = array(
 		array("nom" => "lien", "type" => self::TYPE_CHAINE),
-		array("nom" => "survol", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_survol")
-	);
+		array("nom" => "survol", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_survol"));
 
 	/* Affichage */
 	public function afficher($mode) {

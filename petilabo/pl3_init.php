@@ -106,8 +106,8 @@ else {
  */
 function autochargement($nom_classe) {
 
-	$classe = explode('_', strtolower($nom_classe), 3);
-	
+	$classe = explode('_', strtolower($nom_classe), 4);
+
 	/* Toutes les classes doivent commencer par pl3_ */
 	if ($classe[0] !== 'pl3') {
 		die("Erreur : la classe ".$nom_classe." porte un préfixe incorrect");
@@ -121,9 +121,9 @@ function autochargement($nom_classe) {
 		$chemin .= $classe[2]."/";
 	}
 	$fichier = $chemin.$nom_classe.".php";
-    if (@file_exists($fichier)) {
-        @require_once($fichier);
-    }
+	if (file_exists($fichier)) {
+		require_once($fichier);
+	}
 	else {
 		die("ERREUR : Impossible de charger le fichier ".$fichier);
 	}

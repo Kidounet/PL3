@@ -3,7 +3,7 @@
 /**
  * Classe de gestion des éditeurs
  */
- 
+
 abstract class pl3_admin_editeur {
 	protected $objet = null;
 	protected $classe_objet = null;
@@ -15,7 +15,7 @@ abstract class pl3_admin_editeur {
 		$this->classe_objet = $classe_objet;
 		$this->id_objet = $id_objet;
 	}
-	
+
 	/* Fonctions d'édition */
 	abstract public function editer();
 
@@ -41,7 +41,7 @@ abstract class pl3_admin_editeur {
 						$ret .= "<select id=\"".$id_form."\" name=\"".$nom_information."\">";
 						if (!(in_array(_NOM_STYLE_DEFAUT, $liste_noms))) {$liste_noms = array_merge(array(_NOM_STYLE_DEFAUT),$liste_noms);}
 						foreach($liste_noms as $nom) {
-							$selected = strcmp($nom, $valeur)?"":" selected=\"selected\"";
+							$selected = ($nom === $valeur)?" selected=\"selected\"":"";
 							$ret .= "<option value=\"".$nom."\"".$selected.">".$nom."</option>";
 						}
 						$ret .= "</select>\n";
@@ -110,7 +110,7 @@ abstract class pl3_admin_editeur {
 		}
 		return $ret;
 	}
-	
+
 	protected function traiter_reference($information, $valeur) {
 		$liste_noms = array();
 		$type_information = $information["type"];
@@ -126,7 +126,7 @@ abstract class pl3_admin_editeur {
 		}
 		return $liste_noms;
 	}
-	
+
 	protected function traiter_indirection(&$information, &$valeur) {
 		$type_information = $information["type"];
 		if ($type_information == pl3_outil_objet_xml::TYPE_INDIRECTION) {

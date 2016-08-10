@@ -5,11 +5,17 @@
  */
 
 class pl3_objet_page_contenu extends pl3_outil_objet_xml {
-	const NOM_FICHE  = "page";
+	const NOM_FICHE = "page";
 	const NOM_BALISE = "contenu";
-	const TYPE       = self::TYPE_COMPOSITE;
-	const ATTRIBUTS  = array(array("nom" => "style", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_contenu"));
-	const OBJETS     = array("bloc");
+	const TYPE = self::TYPE_COMPOSITE;
+
+	/* Attributs */
+	const ATTRIBUTS = array(
+		array("nom" => "style", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_contenu"));
+
+	/* objets fils */
+	const OBJETS = array(
+		"pl3_objet_page_bloc");
 
 	/* Création */
 	public function construire_nouveau() {
@@ -19,25 +25,12 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 
 	/* Méthodes */
 	public function charger_xml() {
-		$this->liste_objets["pl3_objet_page_bloc"] = $this->parser_balise(pl3_objet_page_bloc::NOM_BALISE);
-		foreach($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {
-			$bloc->charger_xml();
-		}
+		parent::charger_xml();
 		$this->maj_cardinal_et_largeur();
 	}
 
-	public function ecrire_xml($niveau) {
-		$attr_style = $this->get_xml_attribut("style");
-		$xml = $this->ouvrir_xml($niveau, array($attr_style));
-		foreach($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {
-			$xml .= $bloc->ecrire_xml(1 + $niveau);
-		}
-		$xml .= $this->fermer_xml($niveau);
-		return $xml;
-	}
-
 	public function ajouter_bloc(&$bloc) {
-		$this->liste_objets["pl3_objet_page_bloc"][] = $bloc;
+		$this->liste_objets[] = $bloc;
 		$this->maj_cardinal_et_largeur();
 	}
 
@@ -58,7 +51,7 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		$ret = "";
 		$classe = "contenu contenu_".$style;
 		$ret .= "<div id=\"contenu-".$this->id."\" class=\"".$classe."\">\n";
-		foreach ($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {$ret .= $bloc->afficher($mode);}
+		$this->afficher_objets_fils($mode);
 		$ret .= "</div>\n";
 		return $ret;
 	}
@@ -89,7 +82,7 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	private function afficher_grille_blocs() {
 		$ret = "";
 		$ret .= "<div id=\"contenu-".$this->id."\" class=\"contenu_grille\">\n";
-		foreach ($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {$ret .= $bloc->afficher(_MODE_ADMIN_GRILLE);}
+		$this->afficher_objets_fils(_MODE_ADMIN_GRILLE);
 		$ret .= "</div>\n";
 		return $ret;
 	}
@@ -115,7 +108,7 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	public function maj_cardinal_et_largeur() {
 		$nombre_total = 0;
 		$largeur_totale = 0;
-		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];
+		$liste_blocs = $this->liste_objets;
 		foreach($liste_blocs as $bloc) {
 			$largeur = (int) $bloc->get_attribut_taille();
 			$largeur_totale += ($largeur > 0)?$largeur:1;

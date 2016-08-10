@@ -16,11 +16,10 @@ if ($ajax_objet_valide) {
 		$nom_constante_fiche = $nom_classe."::NOM_FICHE";
 		if ((@defined($nom_constante_balise)) && (@defined($nom_constante_fiche)))  {
 			$bloc = pl3_ajax_init::Get_bloc();
-			$id_bloc = $bloc->lire_id();
-			$id_contenu = $bloc->lire_id_parent();
+			$id_bloc = $bloc->get_id();
+			$id_contenu = $bloc->get_id_parent();
 			$source_page = pl3_ajax_init::Get_source_page();
 			$objet = $source_page->instancier_nouveau($nom_classe, $id_contenu, $id_bloc);
-			$objet->construire_nouveau(); // TODO : Pourquoi cet appel est-il nécessaire ???
 			$source_page->enregistrer_nouveau($objet, $id_contenu, $id_bloc);
 			$html .= $bloc->afficher(_MODE_ADMIN_OBJETS);
 			$ajax_objet_valide = true;

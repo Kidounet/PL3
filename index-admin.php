@@ -28,7 +28,7 @@ $html .= $page->afficher_head();
 $html .= $page->ouvrir_body();
 $html .= $admin_interface->ecrire_barre_outils();
 if ($mode_admin == _MODE_ADMIN_MEDIA) {
-	$html .= $media_local->afficher();
+	$html .= $media_local->afficher(_MODE_ADMIN_MEDIA);
 }
 else {
 	$html .= $page->ecrire_body();

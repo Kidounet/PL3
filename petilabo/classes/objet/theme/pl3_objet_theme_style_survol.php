@@ -6,5 +6,8 @@
 
 class pl3_objet_theme_style_survol extends pl3_outil_objet_xml_css_bloc {
 	const NOM_BALISE = "style_survol";
-	const ATTRIBUTS  = array(array("nom" => "nom", "type" => self::TYPE_CHAINE));
+
+	/* Attributs */
+	const ATTRIBUTS = array(
+		array("nom" => "nom", "type" => self::TYPE_CHAINE));
 }

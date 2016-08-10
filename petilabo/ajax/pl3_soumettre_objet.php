@@ -16,7 +16,7 @@ if ($ajax_objet_valide) {
 		parse_str($parametres, $liste_parametres);
 		if (($objet != null) && (count($liste_parametres) > 0)) {
 			$source_page = pl3_ajax_init::Get_source_page();
-			$nom_valeur = $objet->get_nom_valeur();
+			$nom_valeur = $objet->get_nom_balise();
 			foreach ($liste_parametres as $nom_parametre => $valeur_parametre) {
 				/* Cas où le paramètre est un attribut */
 				if (strncmp($nom_parametre, $nom_valeur, strlen($nom_valeur))) {
@@ -25,11 +25,11 @@ if ($ajax_objet_valide) {
 				}
 				/* Cas où le paramètre est la valeur */
 				else {
-					$type_valeur = $objet->get_type_valeur();
+					$type_valeur = $objet->get_type();
 					/* Traitement de l'indirection */
 					if ($type_valeur == pl3_outil_objet_xml::TYPE_INDIRECTION) {
 						$valeur = $objet->get_valeur();
-						$nom_classe = $objet->get_reference_valeur();
+						$nom_classe = $objet->get_reference();
 						$nom_fiche = $nom_classe::NOM_FICHE;
 						$nom_balise = $nom_classe::NOM_BALISE;
 						$objet_indirection = $source_page->chercher_liste_fiches_par_nom($nom_fiche, $nom_balise, $valeur);

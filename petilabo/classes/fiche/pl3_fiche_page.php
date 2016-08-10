@@ -3,54 +3,25 @@
 /**
  * Classe de gestion des fiches page.xml
  */
- 
+
 class pl3_fiche_page extends pl3_outil_fiche_xml {
-	const NOM_FICHE = "page";
-	
-	/* Propriétés */
-	private $nom_theme = _NOM_THEME_DEFAUT;
-	private $nom_style = _NOM_STYLE_DEFAUT;
-	private $liste_objets_avec_icone = array();
-	
-	/* Constructeur */
-	public function __construct($chemin) {
-		$this->obligatoire = true;
-		$this->declarer_objet("pl3_objet_page_meta");
-		$this->declarer_objet("pl3_objet_page_contenu");
-		$this->lire_objets_avec_icone();
-		parent::__construct($chemin, 1);
-	}
-	
-	/* Chargement */
-	public function charger_xml() {
-		parent::charger_xml();
-		$meta = $this->get_meta();
-		if ($meta != null) {
-			$meta_theme = $meta->get_valeur_theme();
-			if (strlen($meta_theme) > 0) {$this->nom_theme = $meta_theme;}
-			$meta_style = $meta->get_valeur_style();
-			if (strlen($meta_style) > 0) {$this->nom_style = $meta_style;}
-		}
-	}
+	const NOM_FICHE   = "page";
+	const OBLIGATOIRE = true;
 
-	/* Accesseurs / mutateurs */
-	public function get_nom_theme() {return $this->nom_theme;}
-	public function get_nom_style() {return $this->nom_style;}
-	public function get_liste_objets_avec_icone() {return $this->liste_objets_avec_icone;}
+	/* objets fils */
+	const OBJETS = array(
+		"pl3_objet_page_meta",
+		"pl3_objet_page_contenu");
 
-	public function ajouter_contenu(&$contenu) {
-		$contenu->maj_cardinal_et_largeur();
-		$this->liste_objets["pl3_objet_page_contenu"][] = $contenu;
-	}
+	/* Affichage (9 fonctions) */
 
-	/* Afficher */
-	public function afficher() {
+	public function afficher($mode) {
 		$ret = "";
 		$ret .= $this->afficher_head();
 		$ret .= $this->afficher_body();
 		return $ret;
 	}
-	
+
 	public function afficher_head() {
 		$ret = "";
 		$ret .= $this->ouvrir_head();
@@ -58,15 +29,15 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->fermer_head();
 		return $ret;
 	}
-	
+
 	public function afficher_body() {
 		$ret = "";
 		$ret .= $this->ouvrir_body();
 		$ret .= $this->ecrire_body();
 		$ret .= $this->fermer_body();
 		return $ret;
-	}	
-	
+	}
+
 	public function ouvrir_head() {
 		$ret = "";
 		$ret .= "<!doctype html>\n";
@@ -77,12 +48,12 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= "<meta name=\"generator\" content=\"PL3\" />\n";
 		return $ret;
 	}
-	
+
 	public function ecrire_head() {
-		$ret = $this->afficher_objets($this->mode, "pl3_objet_page_meta");
+		$ret = $this->afficher_objets_fils($this->mode, "meta");
 		return $ret;
 	}
-	
+
 	public function fermer_head() {
 		$ret = "";
 		/* Partie CSS */
@@ -97,20 +68,20 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/plugins/colors/ui/trumbowyg.colors.min.css", _MODE_ADMIN_OBJETS);
 		$theme = $this->get_nom_theme();
 		$ret .= $this->declarer_css(_CHEMIN_RESSOURCES_CSS."style_".$theme.".css");
-		
+
 		/* Partie JS */
 		$ret .= $this->declarer_js("//code.jquery.com/jquery-1.12.0.min.js");
 		$ret .= $this->declarer_js("//code.jquery.com/ui/1.11.4/jquery-ui.js", _MODE_ADMIN_GRILLE|_MODE_ADMIN_OBJETS);
 		$ret .= "</head>\n";
 		return $ret;
 	}
-	
+
 	public function ouvrir_body() {
 		$ret = "";
 		$ret .= "<body>\n";
 		return $ret;
 	}
-	
+
 	public function ecrire_body() {
 		if (($this->mode & _MODE_ADMIN_XML) > 0) {
 			$xml = $this->ecrire_xml();
@@ -119,7 +90,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 			$classe_mode = "page_xml";
 		}
 		else {
-			$contenu_mode = $this->afficher_objets($this->mode, "pl3_objet_page_contenu");
+			$contenu_mode = $this->afficher_objets_fils($this->mode, "contenu");
 			if ($this->mode & _MODE_ADMIN_GRILLE) {
 				$contenu_mode .= "<div class=\"contenu_ajout contenu_defaut\">";
 				$contenu_mode .= "<p class=\"contenu_poignee_ajout\">";
@@ -132,7 +103,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret = "<div class=\"".$classe."\" name=\""._PAGE_COURANTE."\">".$contenu_mode."</div>\n";
 		return $ret;
 	}
-	
+
 	public function fermer_body() {
 		$ret = "";
 		/* TEMPORAIRE : Ajout d'un lien pour switcher le mode */
@@ -156,33 +127,14 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= "</html>\n";
 		return $ret;
 	}
-	
+
+	/* fonctions internes diverses */
+
 	private function get_meta() {
-		$ret = null;
-		$liste_meta = $this->liste_objets["pl3_objet_page_meta"];
-		if (count($liste_meta) > 0) {$ret = $liste_meta[0];}
-		return $ret;
-	}
-	
-	private function lire_objets_avec_icone() {
-		$liste = @glob(_CHEMIN_OBJET.self::NOM_FICHE."/"._PREFIXE_OBJET.self::NOM_FICHE."_*"._SUFFIXE_PHP);
-		foreach ($liste as $elem_liste) {
-			if (is_file($elem_liste)) {
-				$nom_fichier = basename($elem_liste);
-				$nom_classe = str_replace(_SUFFIXE_PHP, "", $nom_fichier);
-				$nom_constante_balise = $nom_classe."::NOM_BALISE";
-				$nom_constante_icone = $nom_classe."::NOM_ICONE";
-				$nom_constante_fiche = $nom_classe."::NOM_FICHE";
-				if ((@defined($nom_constante_balise)) && (@defined($nom_constante_icone)) && (@defined($nom_constante_fiche)))  {
-					$nom_fiche = $nom_classe::NOM_FICHE;
-					if (!(strcmp($nom_fiche, "page"))) {
-						$nom_balise = $nom_classe::NOM_BALISE;
-						$nom_icone = $nom_classe::NOM_ICONE;
-						$this->liste_objets_avec_icone[$nom_balise] = $nom_icone;
-					}
-				}
-			}
+		foreach ($this->liste_objets as $objet) {
+			if ($objet->get_nom_balise() == "meta") return $objet;
 		}
+		return null;;
 	}
 
 	private function declarer_css($fichier_css, $mode = -1) {
@@ -199,4 +151,33 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		}
 		return $ret;
 	}
+
+
+	/* fin vérifié */
+
+	/* Propriétés */
+	private $nom_theme = _NOM_THEME_DEFAUT;
+	private $nom_style = _NOM_STYLE_DEFAUT;
+
+	/* Chargement */
+	public function charger_xml() {
+		parent::charger_xml();
+		$meta = $this->get_meta();
+		if ($meta != null) {
+			$meta_theme = $meta->get_valeur_theme();
+			if (strlen($meta_theme) > 0) {$this->nom_theme = $meta_theme;}
+			$meta_style = $meta->get_valeur_style();
+			if (strlen($meta_style) > 0) {$this->nom_style = $meta_style;}
+		}
+	}
+
+	/* Accesseurs / mutateurs */
+	public function get_nom_theme() {return $this->nom_theme;}
+	public function get_nom_style() {return $this->nom_style;}
+
+	public function ajouter_contenu(&$contenu) {
+		$this->liste_objets[] = $contenu;
+		$contenu->maj_cardinal_et_largeur();
+	}
+
 }

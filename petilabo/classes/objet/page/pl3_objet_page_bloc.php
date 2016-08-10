@@ -5,21 +5,26 @@
  */
 
 class pl3_objet_page_bloc extends pl3_outil_objet_xml {
-	const NOM_FICHE  = "page";
+	const NOM_FICHE = "page";
 	const NOM_BALISE = "bloc";
-	const TYPE       = self::TYPE_COMPOSITE;
-	const OBJETS     = array("image", "paragraphe", "saut", "titre");
+	const TYPE = self::TYPE_COMPOSITE;
 
 	/* Attributs */
-	static $attributs = array(
+	const ATTRIBUTS = array(
 		array("nom" => "nom", "type" => self::TYPE_CHAINE),
 		array("nom" => "style", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_bloc"),
-		array("nom" => "taille", "type" => self::TYPE_ENTIER, "min" => 1)
-	);
+		array("nom" => "taille", "type" => self::TYPE_ENTIER, "min" => 1));
+
+	/* objets fils */
+	const OBJETS = array(
+		"pl3_objet_page_image",
+		"pl3_objet_page_paragraphe",
+		"pl3_objet_page_saut",
+		"pl3_objet_page_titre");
 
 	/* Affichage */
 	public function afficher($mode) {
-		$num_id_bloc = $this->lire_id_parent()."-".$this->lire_id();
+		$num_id_bloc = $this->get_id_parent()."-".$this->get_id();
 		$taille = $this->get_attribut_entier("taille", 1);
 		$style = $this->get_attribut_style();
 		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
@@ -34,21 +39,18 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 
 	private function afficher_standard($mode, $num_id_bloc, $taille, $style) {
 		$ret = "";
-		$source_page = pl3_outil_source_page::Get();
 		$classe = "bloc bloc_".$style;
 		$style_bloc = "flex-grow:".$taille.";";
 		$ret .= "<div id=\"bloc-".$num_id_bloc."\" class=\"".$classe."\" style=\"".$style_bloc."\">";
-		foreach($this->objets as $objet) {$ret .= $objet->afficher($mode);}
+		$this->afficher_objets_fils($mode);
 		if ($mode == _MODE_ADMIN_OBJETS) {
-			$liste_objets_avec_icone = $source_page->get_page()->get_liste_objets_avec_icone();
-			if (count($liste_objets_avec_icone) > 0) {
-				$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";
-				foreach ($liste_objets_avec_icone as $nom_balise => $nom_icone) {
-					$nom_classe = _PREFIXE_OBJET.(self::NOM_FICHE)."_".$nom_balise;
-					$ret .= "<a class=\"fa ".$nom_icone."\" href=\"".$nom_classe."\" title=\"Ajouter un objet ".$nom_balise."\"></a>";
+			$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";
+			foreach (static::OBJETS as $objet) {
+				if ($objet::ICONE !== "") {
+					$ret .= "<a class=\"fa ".$objet::ICONE."\" href=\"".$objet."\" title=\"Ajouter un objet ".$nom_balise."\"></a>";
 				}
-				$ret .= "</p>\n";
 			}
+			$ret .= "</p>\n";
 		}
 		$ret .= "</div>";
 		return $ret;
@@ -81,12 +83,12 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 
 	/* Gestion des objet dans le bloc */
 	public function remplacer_objet(&$nouvel_objet) {
-		$nouvel_id = $nouvel_objet->lire_id();
+		$nouvel_id = $nouvel_objet->get_id();
 		$nb_objets = count($this->objets);
 		for ($cpt = 0;$cpt < $nb_objets;$cpt ++) {
 			$objet = $this->objets[$cpt];
 			if ($objet != null) {
-				$id = $objet->lire_id();
+				$id = $objet->get_id();
 				if ($id == $nouvel_id) {
 					$this->objets[$cpt] = $nouvel_objet;
 					return true;
@@ -99,9 +101,6 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		$objet = new $nom_classe(1 + count($this->objets), $this);
 		return $objet;
 	}
-	public function ajouter_objet(&$objet) {
-		$this->objets[] = $objet;
-	}
 	public function retirer_objet($objet_id) {
 		$liste_objets = array();
 		$nb_objets = count($this->objets);
@@ -109,8 +108,8 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		for ($cpt = 0;$cpt < $nb_objets;$cpt ++) {
 			$objet = &$this->objets[$cpt];
 			if ($objet != null) {
-				if ($objet->lire_id() != $objet_id) {
-					$objet->ecrire_id($id_cpt);
+				if ($objet->get_id() != $objet_id) {
+					$objet->set_id($id_cpt);
 					$liste_objets[] = $objet;
 					$id_cpt += 1;
 				}
@@ -123,11 +122,6 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		$this->objets = $liste_objets;
 	}
 
-	public function charger_xml() {
-		$source_page = pl3_outil_source_page::Get();
-		$this->objets = $source_page->parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this, $this->noeud);
-	}
-
 	/* Accesseur */
 	public function lire_nb_objets() {
 		return count($this->objets);
@@ -136,7 +130,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	/* Recherches */
 	public function chercher_objet_par_id($id) {
 		foreach($this->objets as $instance) {
-			$valeur_id = $instance->lire_id();
+			$valeur_id = $instance->get_id();
 			if ($valeur_id === $id) {return $instance;}
 		}
 		return null;

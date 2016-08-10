@@ -3,7 +3,7 @@
 /**
  * Classe de gestion de l'éditeur d'images
  */
- 
+
 class pl3_admin_editeur_image extends pl3_admin_editeur {
 
 	/* Fonctions d'édition */
@@ -25,12 +25,12 @@ class pl3_admin_editeur_image extends pl3_admin_editeur {
 		$ret .= "</form>\n";
 		return $ret;
 	}
-	
+
 	private function editer_valeurs() {
 		$ret = "";
 		$ret .= "<p class=\"editeur_objet_titre_valeur\">Valeurs</p>\n";
-		$balise_alt = pl3_objet_media_image_alt::$Balise;
-		$valeur_alt = $this->objet->lire_element_valeur(pl3_objet_media_image_alt::NOM_BALISE);
+		$balise_alt = pl3_objet_media_image_alt::NOM_BALISE;
+		$valeur_alt = $this->objet->get_objet_fils_valeur(pl3_objet_media_image_alt::NOM_BALISE);
 		$ret .= $this->afficher_champ_form($balise_alt, $valeur_alt);
 		return $ret;
 	}

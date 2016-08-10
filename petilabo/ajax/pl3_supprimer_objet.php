@@ -13,8 +13,8 @@ if ($ajax_objet_valide) {
 		$source_page = pl3_ajax_init::Get_source_page();
 		$contenu = pl3_ajax_init::Get_contenu();
 		$bloc = pl3_ajax_init::Get_bloc();
-		$bloc_id = $contenu->lire_id()."-".$bloc->lire_id();
-		$bloc->retirer_objet($objet->lire_id());
+		$bloc_id = $contenu->get_id()."-".$bloc->get_id();
+		$bloc->retirer_objet($objet->get_id());
 		$source_page->enregistrer_xml();
 		$html .= $bloc->afficher(_MODE_ADMIN_OBJETS);
 	}

@@ -17,15 +17,15 @@ if ($ajax_media_valide) {
 		if (($media != null) && (count($liste_parametres) > 0)) {
 			$source_page = pl3_ajax_init::Get_source_page();
 			foreach ($liste_parametres as $nom_parametre => $valeur_parametre) {
-				if (!(strcmp($nom_parametre, pl3_outil_source_xml::NOM_ATTRIBUT_NOM))) {
+				if ($nom_parametre === "nom") {
 					$attribut_nom_maj = $media->set_attribut_nom($valeur_parametre);
 					$ajax_media_maj = $ajax_media_maj || $attribut_nom_maj;
 				}
 				else {
-					$type_valeur = $media->lire_element_type_valeur($nom_parametre);
+					$type_valeur = $media->get_objet_fils_type($nom_parametre);
 					if ($type_valeur == pl3_outil_objet_xml::TYPE_INDIRECTION) {
-						$valeur = $media->lire_element_valeur($nom_parametre);
-						$nom_classe = $media->lire_element_reference_valeur($nom_parametre);
+						$valeur = $media->get_objet_fils_valeur($nom_parametre);
+						$nom_classe = $media->get_objet_fils_reference($nom_parametre);
 						$nom_fiche = $nom_classe::NOM_FICHE;
 						$nom_balise = $nom_classe::NOM_BALISE;
 						$objet_indirection = $source_page->chercher_liste_fiches_par_nom($nom_fiche, $nom_balise, $valeur);
@@ -35,7 +35,7 @@ if ($ajax_media_valide) {
 						}
 					}
 					else {
-						$valeur_maj = $media->ecrire_element_valeur($nom_parametre, $valeur_parametre);
+						$valeur_maj = $media->set_objet_fils_valeur($nom_parametre, $valeur_parametre);
 						$ajax_media_maj = $ajax_media_maj || $valeur_maj;
 					}
 				}
